@@ -1,0 +1,27 @@
+\documentclass[a4page,12pt]{article}
+\pagestyle{empty}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Heros}
+\usepackage{uklogo}
+
+% umístění prvků na stránce
+\AddToHook{shipout/background}{\put(2cm,-\paperheight+2cm){\uklogo[48pt]}}
+\AddToHook{shipout/background}{\put(\paperwidth-2cm-1em,-\paperheight+2cm-10pt){{\large\thepage}}}
+\AddToHook{shipout/background}{\put(2cm,-2cm){{\huge\bfseries Návštěvní kniha}}}
+\ExplSyntaxOn
+% #1 startovní číslo - optionální parametr, normálně startujeme od 1
+% #2 počet stránek k tisku
+\newcommand\printpages[2][1]{%
+  \setcounter{page}{#1}%
+  \int_step_inline:nnn{1}{#2-1}{\hbox{}\newpage\hbox{}}%
+}
+
+\ExplSyntaxOff
+\begin{document}
+
+\printpages{30}
+% pokud chceme pokračovat v předešlých stránkách, použijeme tohle:
+% \printpages[10]{30}
+
+\end{document}
